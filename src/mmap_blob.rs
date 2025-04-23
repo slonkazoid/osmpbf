@@ -11,6 +11,8 @@ use protobuf::Message;
 use std::fs::File;
 use std::path::Path;
 
+pub use memmap2;
+
 /// A read-only memory map.
 #[derive(Debug)]
 pub struct Mmap {
@@ -18,6 +20,16 @@ pub struct Mmap {
 }
 
 impl Mmap {
+    /// Wrap an existing memory map.
+    ///
+    /// # Safety
+    /// The underlying file should not be modified while holding the memory map.
+    /// See [memmap-rs issue 25](https://github.com/danburkert/memmap-rs/issues/25) for more
+    /// information on the safety of memory maps.
+    pub unsafe fn new(mmap: memmap2::Mmap) -> Mmap {
+        Self { mmap }
+    }
+
     /// Creates a memory map from a given file.
     ///
     /// # Safety
