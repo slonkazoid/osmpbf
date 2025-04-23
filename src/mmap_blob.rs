@@ -26,7 +26,7 @@ impl Mmap {
     /// The underlying file should not be modified while holding the memory map.
     /// See [memmap-rs issue 25](https://github.com/danburkert/memmap-rs/issues/25) for more
     /// information on the safety of memory maps.
-    pub unsafe fn new(mmap: memmap2::Mmap) -> Mmap {
+    pub fn new(mmap: memmap2::Mmap) -> Mmap {
         Self { mmap }
     }
 
